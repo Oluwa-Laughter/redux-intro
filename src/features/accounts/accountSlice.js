@@ -13,6 +13,7 @@ const accountSlice = createSlice({
   reducers: {
     deposit(state, action) {
       state.balance += action.payload;
+      state.isLoading = false;
     },
 
     withdraw(state, action) {
@@ -38,10 +39,14 @@ const accountSlice = createSlice({
       state.loan = 0;
       state.loanPurpose = "";
     },
+
+    currencyConverter(state) {
+      state.isLoading = true;
+    },
   },
 });
 
-export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+export const { withdraw, requestLoan, payLoan } = accountSlice.actions;
 
 export function deposit(amount, currency) {
   if (currency === "USD") return { type: "account/deposit", payload: amount };
